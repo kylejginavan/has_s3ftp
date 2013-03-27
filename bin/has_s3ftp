@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+# encoding: utf-8
+
+$:.push File.expand_path("../../lib", __FILE__)
+
+require 'has_s3ftp'
+
+unless Process.uid == 0
+  puts 'Must run as root'
+  exit
+end
+
+action = ARGV[0] ? ARGV[0].downcase : nil
+@ftp_sever = HasS3ftp::Server.new(HasS3ftp::Command.get_api_key)
+case action
+  when "start"
+    @ftp_sever.start
+  when "stop"
+    @ftp_sever.stop
+  else
+    puts "USAGE: has_s3ftp start|stop"
+end
