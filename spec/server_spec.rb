@@ -19,12 +19,31 @@ describe HasS3ftp::Server do
     end
   end
 
-  context "#start" do
-    # it "should send notification when try to start with errors" do
-    #   EM.stub!(:FTPD).and_return(raise)
-    #   server.should_receive(:notification_error)
-    #   server.start
-    # end
+  context "#pid_file" do
+    it "should return pid file" do
+      server.pid_file.should eql "/var/run/has_s3ftp.pid"
+    end
   end
 
+  context "#stop" do
+    before(:each) do
+      FileUtils.should_receive(:rm_f)
+    end
+    it "should return error if pid file not exists" do
+      File.should_receive(:exists?).and_return do 
+        raise Errno::ESRCH
+      end
+      STDOUT.should_receive(:puts).with('No such process, please check if the server was started')
+      server.stop
+    end
+
+    it "should return error if something wrong happeness" do
+      File.should_receive(:exists?).and_return do 
+        raise "Error"
+      end
+      STDOUT.should_receive(:puts).with("Error when tried to stop the server, please check if the server was started")
+      server.should_receive(:notification_error)
+      server.stop
+    end
+  end
 end

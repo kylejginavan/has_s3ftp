@@ -25,6 +25,9 @@ The first time that you run the gem, it will ask you the following data:
   aws-key - your s3 key
   aws-secret - your s3 secret
   aws-bucket - bucket where it going to save the data upload by ftp
+  notification(y/n) - set it as yes if you want get error notification in your email. It just support SendGrid Account.
+  sendgrid username - your sendgrid account
+  sendgrid password - your sendigrid password
   email - your email for error notification
 
 and it will save the data in the file
