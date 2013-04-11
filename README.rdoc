@@ -11,7 +11,7 @@ A mini FTP server that persists all data to S3
 
 === Step 1
 
-Upload a file called "password" to your S3 bucket. It should contain a single line per user and be a CSV. It should looks something like this
+Upload a file called "passwd" to your S3 bucket. It should contain a single line per user and be a CSV. It should looks something like this
 
   user1,password,y
   user2,password,n
