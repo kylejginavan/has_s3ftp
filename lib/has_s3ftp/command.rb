@@ -54,7 +54,15 @@ module HasS3ftp
       print "aws bucket: "
       aws_bucket = ask
 
-      config_hash = {:aws_key => aws_key, :aws_secret => aws_secret, :aws_bucket => aws_bucket}
+      config_hash = {
+        :aws_key => aws_key,
+        :aws_secret => aws_secret,
+        :aws_bucket => aws_bucket,
+        :port => 21,
+        :daemonize => true,
+        :user => 'deploy',
+        :pidfile => '/var/run/has_s3ftp.pid',
+      }
 
       print "do you want support notification errors by email? (y/n)"
       notification = ask
